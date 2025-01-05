@@ -1,0 +1,115 @@
+@use '../../styles/global.scss' as *;
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 2rem;
+}
+
+.logoContainer {
+    width: 175px;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 100%;
+}
+
+.toggleButton {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btnImage {
+    width: 30px;
+    height: 30px;
+}
+
+.navLinks {
+    display: flex;
+    list-style: none;
+}
+
+.links {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    position: relative;
+
+    a {
+        color: $secondary-color;
+        font-weight: bold;
+        text-decoration: none;
+        position: relative;
+    }
+
+    a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 100%;
+        height: 2px;
+        border-bottom: 2px solid $secondary-color;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.8s ease;
+    }
+
+    a:hover::after {
+        transform: scaleX(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 1rem;
+    }
+
+    .toggleButton {
+        display: block;
+    }
+
+    .navLinks {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+        position: absolute;
+        padding-left: 0;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background-color: $secondary-color;
+        max-height: 0px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .navLinks.open {
+        display: flex;
+        flex-direction: column;
+        max-height: 300px;
+    }
+
+    .links {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        margin-left: 3.5rem;
+        font-size: 1.728rem;
+        width: 100%;
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    }
+}
