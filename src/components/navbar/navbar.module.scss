@@ -7,6 +7,7 @@
     padding: 0rem 2rem;
 }
 
+// stile per il logo
 .logoContainer {
     width: 175px;
     background-size: cover;
@@ -18,6 +19,7 @@
     width: 100%;
 }
 
+// toggle button per schermi mobile-tablet
 .toggleButton {
     display: none;
     background: none;
@@ -30,6 +32,7 @@
     height: 30px;
 }
 
+// stile links per la navigazione
 .navLinks {
     display: flex;
     list-style: none;
@@ -48,23 +51,46 @@
         font-weight: bold;
         text-decoration: none;
         position: relative;
-    }
 
-    a::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -2px;
-        width: 100%;
-        height: 2px;
-        border-bottom: 2px solid $secondary-color;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.8s ease;
-    }
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            border-bottom: 2px solid $secondary-color;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.8s ease;
+        }
 
-    a:hover::after {
-        transform: scaleX(1);
+        &:hover::after {
+            transform: scaleX(1);
+        }
+
+        // stile per la navigazione usando il tasto tab
+        &:focus {
+            outline: none;
+        }
+
+        &:focus::after {
+            outline: none;
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            border-bottom: 2px solid $secondary-color;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.8s ease;
+        }
+
+        &:focus::after {
+            transform: scaleX(1);
+        }
     }
 }
 
@@ -75,6 +101,20 @@
 
     .toggleButton {
         display: block;
+        padding: 0;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+        &:focus {
+            outline: none;
+            background-color: transparent;
+        }
+
+        &:active {
+            background-color: transparent;
+        }
     }
 
     .navLinks {

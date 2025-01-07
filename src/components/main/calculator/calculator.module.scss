@@ -1,0 +1,148 @@
+@use '../../../styles/global.scss' as *;
+
+.search {
+    background-color: $secondary-color;
+    padding: 2rem 0rem;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+
+    h1 {
+        font-size: 3.815rem;
+        color: $primary-color;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+.searchControlsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    input {
+        padding: 1rem;
+        border-style: none;
+        font-size: 1rem;
+
+        &:focus {
+            outline: none;
+            border-style: none;
+            background-color: $fifth-color;
+        }
+    }
+
+    .input1 {
+        border-radius: 30px 0 0 30px;
+    }
+
+    .input2 {
+        border-left: 3px solid $secondary-color;
+        border-right: 3px solid $secondary-color;
+
+        &:focus {
+            border-left: 3px solid $secondary-color;
+            border-right: 3px solid $secondary-color;
+        }
+    }
+
+    .input3 {
+        border-radius: 0 30px 30px 0;
+        margin-right: 30px;
+    }
+}
+
+button {
+    border-radius: 10px;
+    border: 3px solid $primary-color;
+    padding: 0.5rem 1rem;
+    background-color: $third-color;
+    font-weight: bold;
+
+    &:hover {
+        background-color: $fourth-color;
+    }
+
+    &:active {
+        background-color: $third-color;
+    }
+
+    &:focus {
+        outline: none;
+        background-color: $fourth-color;
+    }
+}
+
+// stile risultato
+
+.resultContainer {
+    margin-top: 30px;
+
+    p {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: $primary-color;
+
+        .result {
+            font-size: 1.563rem;
+            font-weight: bold;
+            color: $primary-color;
+            margin-left: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .search {
+        height: auto;
+    }
+
+    .searchContainer {
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+
+    .searchControlsContainer {
+        flex-direction: column;
+        align-items: center;
+
+        input {
+            margin-bottom: 20px;
+            border-radius: 30px;
+            padding: 0.8rem;
+            min-width: 80%;
+        }
+
+        .input1 {
+            border-radius: 30px;
+        }
+
+        .input2 {
+            border-left: none;
+            border-right: none;
+        }
+
+        .input3 {
+            border-radius: 30px;
+            margin-right: 0;
+        }
+
+        button {
+            margin-top: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+    }
+}
