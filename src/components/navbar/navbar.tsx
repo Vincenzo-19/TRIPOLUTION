@@ -16,34 +16,32 @@ export const Navbar = () => {
     };
 
     return (
-        <header>
-            <nav className={styles.navbar}>
-                <div className={styles.logoContainer}>
-                    <img src={logo} alt="Tripolution" className={styles.logo} />
-                </div>
-                <ul
-                    className={`${styles.navLinks} ${
-                        isMenuOpen ? styles.open : ''
-                    }`}
-                >
-                    <li className={styles.links}>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li className={styles.links}>
-                        <Link to="/chiSono">Chi sono</Link>
-                    </li>
-                    <li className={styles.links}>
-                        <Link to="/contatti">Contatti</Link>
-                    </li>
-                </ul>
-                <button onClick={toggleNavbar} className={styles.toggleButton}>
-                    <img
-                        src={menuIcon}
-                        alt="menu button"
-                        className={styles.btnImage}
-                    />
-                </button>
-            </nav>
-        </header>
+        <nav className={styles.navbar}>
+            <div className={styles.logoContainer}>
+                <img src={logo} alt="Tripolution" className={styles.logo} />
+            </div>
+            <ul
+                className={`${styles.navLinks} ${
+                    isMenuOpen ? styles.open : ''
+                }`}
+            >
+                <li className={styles.links}>
+                    <Link to="/">Home</Link>
+                </li>
+                <li className={styles.links}>
+                    <Link to="/chiSono">Chi sono</Link>
+                </li>
+                <li className={styles.links}>
+                    <Link to="/contatti">Contatti</Link>
+                </li>
+            </ul>
+            <button onClick={toggleNavbar} className={styles.toggleButton}>
+                <img
+                    src={menuIcon}
+                    alt="menu button"
+                    className={styles.btnImage}
+                />
+            </button>
+        </nav>
     );
 };

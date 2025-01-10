@@ -1,5 +1,12 @@
 @use '../../styles/global.scss' as *;
 
+header {
+    background-color: $primary-color;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -125,7 +132,7 @@
         margin: 0;
         position: absolute;
         padding-left: 0;
-        top: 68px;
+        top: 62px;
         left: 0;
         right: 0;
         background-color: $secondary-color;
