@@ -1,7 +1,7 @@
-@use '../../../styles/global.scss' as *;
+@use '../../../styles/variable.scss' as *;
 
 .search {
-    background-color: $secondary-color;
+    background-color: $primary-color;
     padding: 2rem 0rem;
     height: 500px;
     display: flex;
@@ -17,8 +17,7 @@
     width: 80%;
 
     h1 {
-        font-size: 3.815rem;
-        color: $primary-color;
+        color: white;
         font-weight: bold;
         text-align: center;
         width: 100%;
@@ -35,11 +34,12 @@
         padding: 1rem;
         border-style: none;
         font-size: 1rem;
+        text-overflow: ellipsis;
 
         &:focus {
             outline: none;
             border-style: none;
-            background-color: $fifth-color;
+            background-color: $fourth-color;
         }
     }
 
@@ -48,12 +48,12 @@
     }
 
     .input2 {
-        border-left: 3px solid $secondary-color;
-        border-right: 3px solid $secondary-color;
+        border-left: 3px solid $primary-color;
+        border-right: 3px solid $primary-color;
 
         &:focus {
-            border-left: 3px solid $secondary-color;
-            border-right: 3px solid $secondary-color;
+            border-left: 3px solid $primary-color;
+            border-right: 3px solid $primary-color;
         }
     }
 
@@ -65,22 +65,23 @@
 
 button {
     border-radius: 10px;
-    border: 3px solid $primary-color;
+    border: 3px solid white;
     padding: 0.5rem 1rem;
-    background-color: $third-color;
+    background-color: $second-color;
     font-weight: bold;
+    cursor: pointer;
 
     &:hover {
-        background-color: $fourth-color;
+        background-color: $third-color;
     }
 
     &:active {
-        background-color: $third-color;
+        background-color: $second-color;
     }
 
     &:focus {
         outline: none;
-        background-color: $fourth-color;
+        background-color: $third-color;
     }
 }
 
@@ -90,15 +91,48 @@ button {
     margin-top: 30px;
 
     p {
-        font-size: 1.25rem;
         font-weight: bold;
-        color: $primary-color;
+        color: white;
 
         .result {
-            font-size: 1.563rem;
+            font-size: 18px;
             font-weight: bold;
-            color: $primary-color;
+            color: white;
             margin-left: 10px;
+        }
+    }
+}
+
+.inputContainer {
+    position: relative;
+}
+
+// airports List
+.airportList {
+    max-height: 200px;
+    max-width: 75%;
+    min-width: 45%;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 30px;
+    list-style: none;
+    position: absolute;
+    margin-top: 65px;
+    z-index: 1000;
+
+    li:first-child {
+        border-top: 1px solid $primary-color;
+    }
+
+    li {
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid $primary-color;
+
+        &:hover {
+            background-color: $fourth-color;
         }
     }
 }
@@ -106,12 +140,6 @@ button {
 @media screen and (max-width: 1023px) {
     .search {
         height: auto;
-    }
-
-    .searchContainer {
-        h1 {
-            font-size: 2.5rem;
-        }
     }
 
     .searchControlsContainer {

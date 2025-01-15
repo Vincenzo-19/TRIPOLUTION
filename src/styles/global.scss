@@ -1,7 +1,37 @@
+@use './variable.scss';
 @import 'normalize.css';
 
-$primary-color: white;
-$secondary-color: #5766fb;
-$third-color: #7686fb;
-$fourth-color: #95a6fb;
-$fifth-color: #b4c6fc;
+h1 {
+    font-size: 3.815rem;
+}
+
+h2 {
+    font-size: 2.488rem;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+li {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2.074rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    li {
+        font-size: 18px;
+    }
+}

@@ -1,4 +1,4 @@
-@use '/src/styles/global.scss' as *;
+@use '/src/styles/variable.scss' as *;
 
 .container {
     width: 100%;
@@ -45,13 +45,7 @@
     height: 100%;
 }
 .h2 {
-    font-size: 2.488rem;
     text-align: left;
-}
-
-p {
-    font-size: 18px;
-    line-height: 1.5;
 }
 
 ul {

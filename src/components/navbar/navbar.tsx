@@ -1,6 +1,6 @@
 import styles from './navbar.module.scss';
 import menuIcon from '../../images/menuIcon.svg';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo.webp';
 import { useDispatch, useSelector } from 'react-redux';
 import * as menuActions from '../../store/navbar/menuSlice';
 import { selectMenu } from '../../store/navbar/menuSlice';
@@ -18,7 +18,13 @@ export const Navbar = () => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.logoContainer}>
-                <img src={logo} alt="Tripolution" className={styles.logo} />
+                <a href="#">
+                    <img
+                        src={logo}
+                        alt="Tripolution Logo"
+                        className={styles.logo}
+                    />
+                </a>
             </div>
             <ul
                 className={`${styles.navLinks} ${

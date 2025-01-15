@@ -1,7 +1,7 @@
 import styles from './FootprintInfo.module.scss';
-import airplane from '../../../images/airplane.jpg';
-import nature from '../../../images/nature.jpg';
-import travel from '../../../images/travel.jpg';
+import airplane from '../../../images/airplane.webp';
+import nature from '../../../images/nature.webp';
+import travel from '../../../images/travel.webp';
 
 export const FootprintInfo = () => {
     return (
@@ -21,7 +21,11 @@ export const FootprintInfo = () => {
                             </div>
                         </div>
                         <div className={styles.imgContainer}>
-                            <img src={nature} className={styles.img} alt="" />
+                            <img
+                                src={nature}
+                                className={styles.img}
+                                alt="nature image"
+                            />
                         </div>
                     </div>
                 </div>
@@ -41,7 +45,12 @@ export const FootprintInfo = () => {
                             </div>
                         </div>
                         <div className={styles.imgContainer}>
-                            <img src={airplane} className={styles.img} alt="" />
+                            <img
+                                src={airplane}
+                                className={styles.img}
+                                alt="airplane image"
+                                loading="lazy"
+                            />
                         </div>
                     </div>
                 </div>
@@ -77,7 +86,8 @@ export const FootprintInfo = () => {
                             <img
                                 src={travel}
                                 className={`${styles.img} ${styles.img3} `}
-                                alt=""
+                                alt="travel image"
+                                loading="lazy"
                             />
                         </div>
                     </div>

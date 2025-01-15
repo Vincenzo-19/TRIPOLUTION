@@ -1,6 +1,34 @@
-@use '/src/styles/global.scss' as *;
+@use '/src/styles/variable.scss' as *;
 
 .container {
     height: 200px;
-    background-color: $secondary-color;
+    background-color: $primary-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .socialContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        img {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    .footerText {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-top: 20px;
+
+        p {
+            color: white;
+        }
+    }
 }
