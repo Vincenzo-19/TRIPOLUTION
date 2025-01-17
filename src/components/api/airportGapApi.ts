@@ -14,7 +14,12 @@ const apiClient = axios.create({
 
 export const getAirports = async () => {
     try {
-        const response = await apiClient.get('/airports');
+        const response = await apiClient.get('/airports', {
+            params: {
+                page: '100',
+                per_page: '500',
+            },
+        });
         return response.data.data.map(
             (airport: {
                 id: string;

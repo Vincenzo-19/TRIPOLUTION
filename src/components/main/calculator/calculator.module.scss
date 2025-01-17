@@ -95,16 +95,12 @@ button {
         color: white;
 
         .result {
-            font-size: 18px;
+            font-size: 1.5rem;
             font-weight: bold;
             color: white;
             margin-left: 10px;
         }
     }
-}
-
-.inputContainer {
-    position: relative;
 }
 
 // airports List
@@ -140,6 +136,11 @@ button {
 @media screen and (max-width: 1023px) {
     .search {
         height: auto;
+    }
+
+    .resultContainer {
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     .searchControlsContainer {

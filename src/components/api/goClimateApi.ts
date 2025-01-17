@@ -1,34 +1,33 @@
 import axios from 'axios';
 
 const GO_CLIMATE_API_URL = 'https://api.goclimate.com/v1/flight_footprint';
-const API_TOKEN = process.env.REACT_APP_GO_CLIMATE_API_TOKEN || '';
 
-const apiClient = axios.create({
-    baseURL: GO_CLIMATE_API_URL,
-    headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
-        'Content-Type': 'application/json',
-    },
-});
+const API_TOKEN = process.env.REACT_APP_GO_CLIMATE_TOKEN || '';
 
 export const getFlightFootprint = async (
-    departure: string,
-    destination: string,
-    passengers: number
+    departureCode: string,
+    destinationCode: string,
+    cabin_class: string = 'economy'
 ) => {
     try {
-        const RESPONSE = await apiClient.post('/', {
-            legs: [
-                {
-                    from: departure,
-                    to: destination,
-                    passengers,
-                },
-            ],
+        const response = await axios.get(GO_CLIMATE_API_URL, {
+            params: {
+                'segments[0][origin]': departureCode,
+                'segments[0][destination]': destinationCode,
+                cabin_class,
+            },
+            auth: {
+                username: API_TOKEN,
+                password: '',
+            },
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
-        return RESPONSE.data;
-    } catch (error) {
-        console.error('Errore durante il calcolo del footprint', error);
-        throw error;
+        console.log('API response:', response.data);
+        return response.data.footprint;
+    } catch {
+        console.error('Errore durante il calcolo del footprint');
+        throw new Error('Errore durante il calcolo del footprint');
     }
 };
