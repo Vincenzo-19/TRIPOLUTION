@@ -1,30 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './calculator.module.scss';
 import { getAirports } from '../../api/airportGapApi';
 import { getFlightFootprint } from '../../api/goClimateApi';
-
-interface Airport {
-    code: string;
-    name: string;
-    city: string;
-    country: string;
-}
+import * as calculatorActions from '../../../store/calculator/calculatorSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/root.reducer';
 
 export const Calculator = () => {
-    const [airports, setAirports] = useState<Airport[]>([]);
-    const [filteredAirports, setFilteredAirports] = useState<Airport[]>([]);
-    const [departure, setDeparture] = useState('');
-    const [destination, setDestination] = useState('');
-    const [passengers, setPassengers] = useState<number | null>(null);
-    const [footprint, setFootprint] = useState<number | null>(null);
-    const [showDepartureList, setShowDepartureList] = useState(false);
-    const [showDestinationList, setShowDestinationList] = useState(false);
+    const dispatch = useDispatch();
+    const {
+        airports,
+        filteredAirports,
+        departure,
+        destination,
+        passengers,
+        footprint,
+        showDepartureList,
+        showDestinationList,
+    } = useSelector((state: RootState) => state.calculator);
 
     useEffect(() => {
         const fetchAirports = async () => {
             try {
                 const data = await getAirports();
-                setAirports(data);
+                dispatch(calculatorActions.setAirports(data));
             } catch (error) {
                 console.error(
                     'Errore durante il recupero degli aeroporti',
@@ -34,7 +33,7 @@ export const Calculator = () => {
         };
 
         fetchAirports();
-    }, []);
+    }, [dispatch]);
 
     const handleInputChange = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -42,11 +41,11 @@ export const Calculator = () => {
     ) => {
         const value = event.target.value;
         if (type === 'departure') {
-            setDeparture(value);
-            setShowDepartureList(true);
+            dispatch(calculatorActions.setDeparture(value));
+            dispatch(calculatorActions.setShowDepartureList(true));
         } else {
-            setDestination(value);
-            setShowDestinationList(true);
+            dispatch(calculatorActions.setDestination(value));
+            dispatch(calculatorActions.setShowDestinationList(true));
         }
         filterAirports(value, type);
     };
@@ -55,42 +54,50 @@ export const Calculator = () => {
         value: string,
         type: 'departure' | 'destination'
     ) => {
-        setFilteredAirports(
-            airports.filter(
-                (airport) =>
-                    airport.city.toLowerCase().includes(value.toLowerCase()) &&
-                    airport.code !==
-                        (type === 'departure'
-                            ? destination.split(' - ')[0]
-                            : departure.split(' - ')[0])
+        dispatch(
+            calculatorActions.setFilteredAirports(
+                airports.filter(
+                    (airport) =>
+                        airport.city
+                            .toLowerCase()
+                            .includes(value.toLowerCase()) &&
+                        airport.code !==
+                            (type === 'departure'
+                                ? destination.split(' - ')[0]
+                                : departure.split(' - ')[0])
+                )
             )
         );
     };
 
     const handleFocus = (type: 'departure' | 'destination') => {
         if (type === 'departure') {
-            setShowDepartureList(true);
+            dispatch(calculatorActions.setShowDepartureList(true));
             filterAirports(departure, type);
         } else {
-            setShowDestinationList(true);
+            dispatch(calculatorActions.setShowDestinationList(true));
             filterAirports(destination, type);
         }
     };
 
     const handleSelect = (
-        airport: Airport,
+        airport: { code: string; city: string; country: string },
         type: 'departure' | 'destination'
     ) => {
         if (type === 'departure') {
-            setDeparture(
-                `${airport.code} - ${airport.city}, ${airport.country}`
+            dispatch(
+                calculatorActions.setDeparture(
+                    `${airport.code} - ${airport.city}, ${airport.country}`
+                )
             );
-            setShowDepartureList(false);
+            dispatch(calculatorActions.setShowDepartureList(false));
         } else {
-            setDestination(
-                `${airport.code} - ${airport.city}, ${airport.country}`
+            dispatch(
+                calculatorActions.setDestination(
+                    `${airport.code} - ${airport.city}, ${airport.country}`
+                )
             );
-            setShowDestinationList(false);
+            dispatch(calculatorActions.setShowDestinationList(false));
         }
     };
 
@@ -105,9 +112,11 @@ export const Calculator = () => {
             );
 
             if (passengers !== null && passengers > 1) {
-                setFootprint(footprint * passengers);
+                dispatch(
+                    calculatorActions.setFootprint(footprint * passengers)
+                );
             } else {
-                setFootprint(footprint);
+                dispatch(calculatorActions.setFootprint(footprint));
             }
         } catch (error) {
             console.error('Errore durante il calcolo del footprint', error);
@@ -130,7 +139,7 @@ export const Calculator = () => {
                         className={styles.input1}
                         value={departure}
                         onFocus={() => handleFocus('departure')}
-                        onClick={() => setDeparture('')}
+                        onClick={() => calculatorActions.setDeparture('')}
                         onChange={(e) => handleInputChange(e, 'departure')}
                     />
                     {showDepartureList && (
@@ -160,7 +169,7 @@ export const Calculator = () => {
                         className={styles.input2}
                         value={destination}
                         onFocus={() => handleFocus('destination')}
-                        onClick={() => setDestination('')}
+                        onClick={() => calculatorActions.setDestination('')}
                         onChange={(e) => handleInputChange(e, 'destination')}
                     />
                     {showDestinationList && (
@@ -188,7 +197,13 @@ export const Calculator = () => {
                         required
                         className={styles.input3}
                         value={passengers !== null ? passengers : ''}
-                        onChange={(e) => setPassengers(Number(e.target.value))}
+                        onChange={(e) =>
+                            dispatch(
+                                calculatorActions.setPassengers(
+                                    Number(e.target.value)
+                                )
+                            )
+                        }
                     />
                     <button onClick={calculateFootprint}>Calcola</button>
                 </div>

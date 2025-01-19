@@ -1,14 +1,12 @@
 import axios from 'axios';
-import getJsonAirports from './airportCodes/airportCodes';
 
 const AIRPORT_GAP_API_URL = 'https://airportgap.com/api';
-
-const API_TOKEN = process.env.REACT_APP_AIRPORT_GAP_API_TOKEN || '';
+const AIRPORT_API_TOKEN = process.env.REACT_APP_AIRPORT_GAP_API_TOKEN || '';
 
 const apiClient = axios.create({
     baseURL: AIRPORT_GAP_API_URL,
     headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
+        Authorization: `Bearer ${AIRPORT_API_TOKEN}`,
         'Content-Type': 'application/json',
     },
 });
@@ -17,11 +15,10 @@ export const getAirports = async () => {
     try {
         const response = await apiClient.get('/airports', {
             params: {
-                page: '5',
+                page: '100',
             },
         });
-
-        const apiAirports = response.data.data.map(
+        return response.data.data.map(
             (airport: {
                 id: string;
                 attributes: { name: string; city: string; country: string };
@@ -32,18 +29,6 @@ export const getAirports = async () => {
                 country: airport.attributes.country,
             })
         );
-
-        const jsonAirports = getJsonAirports().slice(0, 1500);
-
-        const combinedAirports = [...jsonAirports, ...apiAirports];
-
-        const uniqueAirports = Array.from(
-            new Map(
-                combinedAirports.map((airport) => [airport.code, airport])
-            ).values()
-        );
-
-        return uniqueAirports;
     } catch (error) {
         console.error('Errore durante il recupero degli aeroporti', error);
         throw error;
