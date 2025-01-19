@@ -33,7 +33,7 @@ export const getAirports = async () => {
             })
         );
 
-        const jsonAirports = getJsonAirports().slice(0, 1500);
+        const jsonAirports = getJsonAirports();
 
         const combinedAirports = [...jsonAirports, ...apiAirports];
 

@@ -5,6 +5,7 @@ import { getFlightFootprint } from '../../api/goClimateApi';
 import * as calculatorActions from '../../../store/calculator/calculatorSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/root.reducer';
+import { addButtonTouchListeners } from '../../utils/handleButtonTouch';
 
 export const Calculator = () => {
     const dispatch = useDispatch();
@@ -19,11 +20,14 @@ export const Calculator = () => {
         showDestinationList,
     } = useSelector((state: RootState) => state.calculator);
 
+    // recupero degli aeroporti
+
     useEffect(() => {
         const fetchAirports = async () => {
             try {
                 const data = await getAirports();
                 dispatch(calculatorActions.setAirports(data));
+                dispatch(calculatorActions.setFilteredAirports(data));
             } catch (error) {
                 console.error(
                     'Errore durante il recupero degli aeroporti',
@@ -34,6 +38,8 @@ export const Calculator = () => {
 
         fetchAirports();
     }, [dispatch]);
+
+    // funzione per gestire il cambio di valore degli input
 
     const handleInputChange = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -50,6 +56,8 @@ export const Calculator = () => {
         filterAirports(value, type);
     };
 
+    // funzione per filtrare gli aeroporti
+
     const filterAirports = (
         value: string,
         type: 'departure' | 'destination'
@@ -58,27 +66,35 @@ export const Calculator = () => {
             calculatorActions.setFilteredAirports(
                 airports.filter(
                     (airport) =>
+                        airport.code
+                            .toLowerCase()
+                            .includes(value.toLowerCase()) ||
                         airport.city
                             .toLowerCase()
+                            .includes(value.toLowerCase()) ||
+                        (airport.country
+                            .toLowerCase()
                             .includes(value.toLowerCase()) &&
-                        airport.code !==
-                            (type === 'departure'
-                                ? destination.split(' - ')[0]
-                                : departure.split(' - ')[0])
+                            airport.code !==
+                                (type === 'departure'
+                                    ? destination.split(' - ')[0]
+                                    : departure.split(' - ')[0]))
                 )
             )
         );
     };
 
+    // funzione per gestire il focus sugli input
+
     const handleFocus = (type: 'departure' | 'destination') => {
         if (type === 'departure') {
-            dispatch(calculatorActions.setShowDepartureList(true));
             filterAirports(departure, type);
         } else {
-            dispatch(calculatorActions.setShowDestinationList(true));
             filterAirports(destination, type);
         }
     };
+
+    // funzione per selezionare un aeroporto
 
     const handleSelect = (
         airport: { code: string; city: string; country: string },
@@ -101,7 +117,14 @@ export const Calculator = () => {
         }
     };
 
+    // funzione per calcolare il footprint
+
     const calculateFootprint = async () => {
+        if (!departure || !destination || !passengers) {
+            alert('Per favore, inserisci tutti i campi');
+            return;
+        }
+
         const departureCode = departure.split(' - ')[0];
         const destinationCode = destination.split(' - ')[0];
 
@@ -123,11 +146,23 @@ export const Calculator = () => {
         }
     };
 
+    //
+    //
+    //
+
+    addButtonTouchListeners();
+
     return (
         <section className={styles.search}>
             <div className={styles.searchContainer}>
                 <h1 className="title">Calcolo del FootPrint</h1>
-                <div className={styles.searchControlsContainer}>
+                <form
+                    className={styles.searchControlsContainer}
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        calculateFootprint();
+                    }}
+                >
                     <label htmlFor="Partenza"></label>
                     <input
                         type="text"
@@ -139,22 +174,32 @@ export const Calculator = () => {
                         className={styles.input1}
                         value={departure}
                         onFocus={() => handleFocus('departure')}
-                        onClick={() => calculatorActions.setDeparture('')}
+                        onClick={() => {
+                            dispatch(calculatorActions.setDeparture(''));
+                        }}
                         onChange={(e) => handleInputChange(e, 'departure')}
                     />
                     {showDepartureList && (
-                        <ul className={styles.airportList}>
-                            {filteredAirports.map((airport) => (
-                                <li
-                                    key={airport.code}
-                                    onClick={() =>
-                                        handleSelect(airport, 'departure')
-                                    }
-                                >
-                                    {airport.code} - {airport.city},{' '}
-                                    {airport.country}
+                        <ul
+                            className={`${styles.airportList} ${styles.departureList}`}
+                        >
+                            {filteredAirports.length > 0 ? (
+                                filteredAirports.map((airport, index) => (
+                                    <li
+                                        key={`${airport.code}-${index}`}
+                                        onClick={() =>
+                                            handleSelect(airport, 'departure')
+                                        }
+                                    >
+                                        {airport.code} - {airport.city},{' '}
+                                        {airport.country}
+                                    </li>
+                                ))
+                            ) : (
+                                <li className={styles.notResult}>
+                                    Nessun risultato trovato
                                 </li>
-                            ))}
+                            )}
                         </ul>
                     )}
 
@@ -169,22 +214,32 @@ export const Calculator = () => {
                         className={styles.input2}
                         value={destination}
                         onFocus={() => handleFocus('destination')}
-                        onClick={() => calculatorActions.setDestination('')}
+                        onClick={() => {
+                            dispatch(calculatorActions.setDestination(''));
+                        }}
                         onChange={(e) => handleInputChange(e, 'destination')}
                     />
                     {showDestinationList && (
-                        <ul className={styles.airportList}>
-                            {filteredAirports.map((airport) => (
-                                <li
-                                    key={airport.code}
-                                    onClick={() =>
-                                        handleSelect(airport, 'destination')
-                                    }
-                                >
-                                    {airport.code} - {airport.city},{' '}
-                                    {airport.country}
+                        <ul
+                            className={`${styles.airportList} ${styles.destinationList}`}
+                        >
+                            {filteredAirports.length > 0 ? (
+                                filteredAirports.map((airport, index) => (
+                                    <li
+                                        key={`${airport.code}-${index}`}
+                                        onClick={() =>
+                                            handleSelect(airport, 'destination')
+                                        }
+                                    >
+                                        {airport.code} - {airport.city},{' '}
+                                        {airport.country}
+                                    </li>
+                                ))
+                            ) : (
+                                <li className={styles.notResult}>
+                                    Nessun risultato trovato
                                 </li>
-                            ))}
+                            )}
                         </ul>
                     )}
                     <label htmlFor="numeroPasseggeri"></label>
@@ -206,7 +261,7 @@ export const Calculator = () => {
                         }
                     />
                     <button onClick={calculateFootprint}>Calcola</button>
-                </div>
+                </form>
                 <div className={styles.resultContainer}>
                     <p>
                         Il footprint del volo è di:{' '}

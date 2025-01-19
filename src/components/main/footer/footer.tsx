@@ -1,6 +1,6 @@
 import styles from './footer.module.scss';
-import github from '../../../images/github.webp';
-import linkedin from '../../../images/linkedin.webp';
+import github from '../../../../public/images/github.webp';
+import linkedin from '../../../../public/images/linkedin.webp';
 
 export const Footer = () => {
     return (

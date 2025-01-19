@@ -1,5 +1,7 @@
 @use '../../../styles/variable.scss' as *;
 
+// stile del calcolatore
+
 .search {
     background-color: $primary-color;
     padding: 2rem 0rem;
@@ -106,8 +108,7 @@ button {
 // airports List
 .airportList {
     max-height: 200px;
-    max-width: 75%;
-    min-width: 45%;
+    min-width: 55%;
     overflow-y: auto;
     background-color: white;
     border: 1px solid #ccc;
@@ -115,7 +116,7 @@ button {
     padding: 5px 30px;
     list-style: none;
     position: absolute;
-    margin-top: 65px;
+    top: 390px;
     z-index: 1000;
 
     li:first-child {
@@ -133,7 +134,18 @@ button {
     }
 }
 
-@media screen and (max-width: 1023px) {
+// stile per il risultato della ricerca non trovato
+
+.notResult:hover {
+    background-color: white !important;
+    cursor: default;
+}
+
+//
+//
+//
+
+@media screen and (max-width: 827px) {
     .search {
         height: auto;
     }
@@ -174,5 +186,30 @@ button {
             font-size: 1rem;
             font-weight: bold;
         }
+    }
+
+    .departureList {
+        top: 250px !important;
+        max-width: 40% !important;
+    }
+
+    .destinationList {
+        top: 315px !important;
+        max-width: 40% !important;
+    }
+}
+
+//
+//
+//
+
+@media screen and (max-width: 458px) {
+    .departureList {
+        top: 295px !important;
+        max-width: 40% !important;
+    }
+    .destinationList {
+        top: 360px !important;
+        max-width: 40% !important;
     }
 }

@@ -1,5 +1,7 @@
 @use '../../styles/variable.scss' as *;
 
+// stile per la navbar
+
 header {
     background-color: white;
     position: sticky;
@@ -9,7 +11,7 @@ header {
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
     padding: 0rem 2rem;
 }
@@ -20,6 +22,7 @@ header {
     background-size: cover;
     display: flex;
     justify-content: center;
+    padding: 1rem;
 }
 
 .logo {
@@ -27,84 +30,9 @@ header {
     cursor: pointer;
 }
 
-// toggle button per schermi mobile-tablet
-.toggleButton {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.btnImage {
-    width: 30px;
-    height: 30px;
-}
-
-// stile links per la navigazione
-.navLinks {
-    display: flex;
-    list-style: none;
-}
-
-.links {
-    margin-right: 1rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    padding: 1rem 1.5rem;
-    border-radius: 10px;
-    position: relative;
-
-    a {
-        color: $primary-color;
-        font-weight: bold;
-        text-decoration: none;
-        position: relative;
-
-        &::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 100%;
-            height: 2px;
-            border-bottom: 2px solid $primary-color;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.8s ease;
-        }
-
-        &:hover::after {
-            transform: scaleX(1);
-        }
-
-        // stile per la navigazione usando il tasto tab
-        &:focus {
-            outline: none;
-        }
-
-        &:focus::after {
-            outline: none;
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 100%;
-            height: 2px;
-            border-bottom: 2px solid $primary-color;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.8s ease;
-        }
-
-        &:focus::after {
-            transform: scaleX(1);
-        }
-    }
-}
-
 @media (max-width: 768px) {
     .navbar {
-        padding: 1rem 1rem;
+        padding: 0rem;
     }
 
     .toggleButton {

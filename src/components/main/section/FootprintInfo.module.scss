@@ -1,5 +1,7 @@
 @use '/src/styles/variable.scss' as *;
 
+// stile della sezione FootprintInfo
+
 .container {
     width: 100%;
     display: flex;
@@ -64,6 +66,10 @@ img {
     display: block;
     object-fit: cover;
 }
+
+//
+//
+//
 
 @media screen and (max-width: 1024px) {
     .box1,
