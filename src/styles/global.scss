@@ -1,5 +1,16 @@
 @use './variable.scss';
 @import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&family=Roboto:ital,wght@0,700;1,700&display=swap');
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto';
+    font-weight: 700;
+}
 
 h1 {
     font-size: 3.815rem;
@@ -7,6 +18,11 @@ h1 {
 
 h2 {
     font-size: 2.488rem;
+}
+
+p,
+li {
+    font-family: 'Noto Serif';
 }
 
 p {
