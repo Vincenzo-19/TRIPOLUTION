@@ -3,7 +3,7 @@
 <h2>Descrizione del progetto</h2>
 <p>TRIPOLUTION è una web app che consente agli utenti di stimare l'impronta di carbonio generata da un viaggio.</p>
 
-<img src='/images/screenshotTripolution.webp' alt='screenshotTripolution image' />
+<img src='/public/images/screenshotTripolution.webp' alt='screenshotTripolution image' />
 
 <p>Qui sotto c'è il link per l'app TRIPOLUTION⬇️</p>
 
