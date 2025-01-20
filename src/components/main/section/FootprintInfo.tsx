@@ -1,7 +1,7 @@
 import styles from './FootprintInfo.module.scss';
-import airplane from '../../../../public/images/airplane.webp';
-import nature from '../../../../public/images/nature.webp';
-import travel from '../../../../public/images/travel.webp';
+import airplane from '/images/airplane.webp';
+import nature from '/images/nature.webp';
+import travel from '/images/travel.webp';
 
 export const FootprintInfo = () => {
     return (

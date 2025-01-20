@@ -1,5 +1,5 @@
 import styles from './navbar.module.scss';
-import logo from '../../../public/images/logo.webp';
+import logo from '/images/logo.webp';
 
 export const Navbar = () => {
     return (
