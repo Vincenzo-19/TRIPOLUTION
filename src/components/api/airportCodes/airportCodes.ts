@@ -1,18 +1,14 @@
 import airportsData from './airports.json';
 
-export const getJsonAirports = () => {
-    return airportsData.map(
-        (airport: {
-            code: string;
-            name: string;
-            city: string;
-            country: string;
-        }) => ({
-            code: airport.code,
-            name: airport.name,
-            city: airport.city,
-            country: airport.country,
-        })
-    );
+interface IAirport {
+    code: string;
+    name: string;
+    city: string;
+    country: string;
+}
+
+export const getJsonAirports = (): IAirport[] => {
+    return airportsData as IAirport[];
 };
+
 export default getJsonAirports;

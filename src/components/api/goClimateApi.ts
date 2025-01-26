@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const GO_CLIMATE_API_URL = 'https://api.goclimate.com/v1/flight_footprint';
 
-const API_TOKEN = process.env.REACT_APP_GO_CLIMATE_TOKEN || '';
+const API_TOKEN = import.meta.env.VITE_GO_CLIMATE_TOKEN || '';
 
 export const getFlightFootprint = async (
     departureCode: string,

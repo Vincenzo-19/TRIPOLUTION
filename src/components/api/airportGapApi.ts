@@ -3,7 +3,7 @@ import getJsonAirports from './airportCodes/airportCodes';
 
 const AIRPORT_GAP_API_URL = 'https://airportgap.com/api';
 
-const API_TOKEN = process.env.REACT_APP_AIRPORT_GAP_API_TOKEN || '';
+const API_TOKEN = import.meta.env.VITE_AIRPORT_GAP_API_TOKEN || '';
 
 const apiClient = axios.create({
     baseURL: AIRPORT_GAP_API_URL,
